@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from models import storage
+
 import uuid
 from datetime import datetime
 
@@ -16,6 +16,14 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
-
+    def to_dict(self):
+        obj_dict = {
+            'id': self.id,
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat(),
+            # Add other attributes as needed
+        }
+        return obj_dict
     def save(self):
         storage.save()
+from models import storage
